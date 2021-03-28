@@ -1,7 +1,16 @@
-from celery import Celery
+from .celery import app
 
-app = Celery('tasks',backend='rpc://', broker='pyamqp://guest@localhost//')
-app.conf.task_serializer = 'json'
+
 @app.task
 def add(x, y):
     return x + y
+
+
+@app.task
+def mul(x, y):
+    return x * y
+
+
+@app.task
+def xsum(numbers):
+    return sum(numbers)
